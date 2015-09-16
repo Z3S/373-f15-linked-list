@@ -10,6 +10,22 @@
 list_t* insert_sorted(list_t* head, list_t* new_element) {
 	assert(head != NULL);
 	assert(new_element != NULL);
+	struct list_t * current_pointer = head;
+	struct list_t * last_pointer;
+
+	if(new_element->index < current_pointer->index){
+		new_element->next = head;
+		head = new_element;
+	} else {
+		while((current_pointer != NULL) && (new_element->index > current_pointer->index)) {
+			last_pointer = current_pointer;
+			current_pointer = current_pointer->next;
+			if((current_pointer == NULL) || (new_element->index < current_pointer->index)) {
+				new_element->next = current_pointer;
+				last_pointer->next = new_element;
+			}
+		}
+	}
 
 	return head;
 }
