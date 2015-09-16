@@ -34,7 +34,16 @@ list_t* insert_sorted(list_t* head, list_t* new_element) {
 // the resulting list. You do not need to preserve the original list.
 list_t* reverse(list_t* head) {
 	assert(head != NULL);
-
+	struct list_t* previous_pointer = NULL;
+	struct list_t* current_pointer = head;
+	struct list_t* next_pointer = head->next;
+	while(next_pointer != NULL){
+		current_pointer->next = previous_pointer;
+		previous_pointer = current_pointer;
+		current_pointer = next_pointer;
+		next_pointer = next_pointer->next;
+	}
+	current_pointer->next = previous_pointer;
+	head = current_pointer;
 	return head;
 }
-
